@@ -549,7 +549,7 @@ setLanguage(currentLanguage);
           <div class="q-progress"><div id="qProgress"></div></div><div class="q-question" id="qQuestionText"></div><div class="q-choices" id="qChoices"></div><div class="q-timer-track"><div id="qTimeBar"></div></div><div class="q-feedback" id="qFeedback" role="status" aria-live="polite"></div>
         </div>
         <div id="qFinished" class="q-hidden"><div style="font-size:4rem">🌟</div><h2 id="qFinishedTitle">¡Partida completada!</h2><p class="q-sub" id="qFinishedDesc">Tu puntuación ya está en el ranking. Ahora espera al cierre del concurso.</p><div class="q-scores"><div class="q-metric"><span id="qFinishedCorrectLabel">ACIERTOS</span><strong id="qFinalCorrect">0/10</strong></div><div class="q-metric"><span id="qFinishedScoreLabel">PUNTOS</span><strong id="qFinalScore">0</strong></div></div></div>
-        <div id="qClosed" class="q-hidden"><div style="font-size:4rem">🏁</div><h2 id="qClosedTitle">¡Concurso finalizado!</h2><p class="q-sub" id="qClosedDesc">Ya no se admiten nuevas respuestas. Puedes consultar el ranking final.</p><h2 id="qWinnerName" style="color:#9250be"></h2></div>
+        <div id="qClosed" class="q-hidden"><div style="font-size:4rem">🏁</div><h2 id="qClosedTitle">¡Concurso finalizado!</h2><p class="q-sub" id="qClosedDesc">Ya no se admiten nuevas respuestas. Puedes consultar el ranking final.</p><h2 id="qWinnerName" style="color:#9250be"></h2><button class="q-primary q-hidden" id="qPlayAgain" type="button" style="margin-top:16px">🎮 Jugar de nuevo</button></div>
       </div>
       <aside class="q-rank"><h2 id="qRankTitle">🏅 Ranking en directo</h2><p class="q-rank-note" id="qRankNote">Se sincroniza al instante y se actualiza en pantalla cada segundo.</p><div class="q-rank-list" id="qRankList"><p id="qEmptyRank">Aún no hay participantes. ¡Estrena el ranking!</p></div><p class="q-rank-note" id="qRankUpdated" style="margin:14px 0 0">Esperando conexión…</p></aside>
     </div>
@@ -579,8 +579,8 @@ setLanguage(currentLanguage);
  const MAX_MS=15000;
  const ADMIN_NAME='rafa1234';
  const TEXT={
-  es:{eyebrow:'✨ ¿CUÁNTO RECUERDAS? ✨',title:'🏆 CONCURSO FINAL',intro:'10 preguntas · 4 opciones · gana puntos extra por cada milisegundo que ahorres.',welcomeTitle:'¿Cómo te llamas?',welcomeDesc:'Escribe tu nombre o apodo para aparecer en la clasificación. Cada dispositivo puede participar una vez.',nameLabel:'Tu nombre',namePlace:'Escribe tu nombre…',start:'🚀 ¡EMPEZAR!',private:'🔐 El apodo elegido y tu puntuación serán visibles en el ranking.',question:'PREGUNTA',correct:'ACIERTOS',points:'PUNTOS',time:'TIEMPO',finishedTitle:'¡Partida completada!',finishedDesc:'Tus puntos ya aparecen en el ranking. Espera a que se cierre el concurso.',closedTitle:'¡Concurso finalizado!',closedDesc:'Ya no se admiten respuestas. Este es el ranking definitivo.',rankTitle:'🏅 Ranking en directo',rankNote:'Se sincroniza al instante y se actualiza en pantalla cada segundo.',emptyRank:'Aún no hay participantes. ¡Estrena el ranking!',footer:'🎶 Música original del navegador · 15 segundos por pregunta · Cronómetro con precisión de 0,001 s.',back:'↩ Programa',soundOn:'🔊 Música activada',soundOff:'🔇 Música apagada',otherLang:'🌐 繁體中文',connecting:'● Conectando…',online:'● Ranking conectado',offline:'● Solo práctica',saving:'Guardando respuesta…',saved:'Última sincronización',seconds:'hace {n} s',correctAns:'¡Correcto! +{n} puntos',wrongAns:'¡Fallaste! La respuesta correcta era: {a}',timeout:'¡Se acabó el tiempo! Respuesta: {a}',scoreBoard:'puntos',playing:'Jugando · {n}/10',done:'Partida terminada',badName:'Escribe un nombre de 2 a 26 caracteres.',pleaseWait:'Comprobando el ranking, inténtalo de nuevo en un momento.',already:'Este dispositivo ya ha participado. Puedes consultar tu puesto.',offlineText:'No se pudo conectar con Firebase. Puedes jugar de práctica, pero no se guardará tu puntuación en el ranking global.',saveError:'No se pudo guardar en Firebase. Comprueba las reglas y la conexión.',adminClosed:'¡Concurso cerrado! El resultado se ha comunicado a todos los participantes.',adminError:'No se pudo cerrar el concurso online. Comprueba los permisos.',winTitle:'¡CAMPEÓN DEL CONCIERTO!',winSub:'¡Has quedado en el primer puesto!',winClose:'🏅 VER RANKING',nobody:'No hay resultados registrados todavía.',winner:'🥇 Ganador: {n}',finalPoints:'{n} PUNTOS',roundError:'Error al cargar las preguntas.'},
-  zh:{eyebrow:'✨ 你還記得多少呢？ ✨',title:'🏆 音樂會最終挑戰賽',intro:'10 道題 · 4 個選項 · 答得越快，加分越多！',welcomeTitle:'你叫什麼名字？',welcomeDesc:'輸入姓名或暱稱，加入排行榜。每個裝置只能參加一次。',nameLabel:'你的名字',namePlace:'輸入姓名或暱稱…',start:'🚀 開始挑戰！',private:'🔐 你的暱稱與分數會顯示在排行榜中。',question:'題目',correct:'答對',points:'分數',time:'時間',finishedTitle:'挑戰完成！',finishedDesc:'你的成績已列入排行榜，請等待比賽結束。',closedTitle:'比賽已結束！',closedDesc:'不再接受作答。以下是最終排行榜。',rankTitle:'🏅 即時排行榜',rankNote:'分數即時同步，畫面每秒更新。',emptyRank:'目前還沒有參賽者，快來當第一位！',footer:'🎶 瀏覽器原創音樂 · 每題 15 秒 · 計時精度達 0.001 秒。',back:'↩ 回到節目表',soundOn:'🔊 音樂已開啟',soundOff:'🔇 音樂已關閉',otherLang:'🌐 Español',connecting:'● 正在連線…',online:'● 排行榜已連線',offline:'● 僅供練習',saving:'正在儲存作答…',saved:'最近同步',seconds:'{n} 秒前',correctAns:'答對了！+{n} 分',wrongAns:'答錯了！正確答案：{a}',timeout:'時間到！正確答案：{a}',scoreBoard:'分',playing:'進行中 · {n}/10',done:'挑戰完成',badName:'請輸入 2 至 26 個字的名稱。',pleaseWait:'正在檢查排行榜，請稍後再試。',already:'此裝置已參賽，可以查看排名。',offlineText:'無法連線至 Firebase。你仍可練習，但成績不會儲存到線上排行榜。',saveError:'無法儲存到 Firebase，請檢查存取規則與網路。',adminClosed:'比賽已結束，所有參賽者都會收到結果！',adminError:'無法在線上結束比賽，請檢查權限。',winTitle:'音樂會總冠軍！',winSub:'恭喜你獲得第一名！',winClose:'🏅 查看排行榜',nobody:'目前沒有任何紀錄。',winner:'🥇 冠軍：{n}',finalPoints:'{n} 分',roundError:'載入題目時發生錯誤。'}
+  es:{eyebrow:'✨ ¿CUÁNTO RECUERDAS? ✨',title:'🏆 CONCURSO FINAL',intro:'10 preguntas · 4 opciones · gana puntos extra por cada milisegundo que ahorres.',welcomeTitle:'¿Cómo te llamas?',welcomeDesc:'Escribe tu nombre o apodo para aparecer en la clasificación. Cada dispositivo puede participar una vez.',nameLabel:'Tu nombre',namePlace:'Escribe tu nombre…',start:'🚀 ¡EMPEZAR!',private:'🔐 El apodo elegido y tu puntuación serán visibles en el ranking.',question:'PREGUNTA',correct:'ACIERTOS',points:'PUNTOS',time:'TIEMPO',finishedTitle:'¡Partida completada!',finishedDesc:'Tus puntos ya aparecen en el ranking. Espera a que se cierre el concurso.',closedTitle:'¡Concurso finalizado!',closedDesc:'Ya no se admiten respuestas. Este es el ranking definitivo.',rankTitle:'🏅 Ranking en directo',rankNote:'Se sincroniza al instante y se actualiza en pantalla cada segundo.',emptyRank:'Aún no hay participantes. ¡Estrena el ranking!',footer:'🎶 Música original del navegador · 15 segundos por pregunta · Cronómetro con precisión de 0,001 s.',back:'↩ Programa',soundOn:'🔊 Música activada',soundOff:'🔇 Música apagada',otherLang:'🌐 繁體中文',connecting:'● Conectando…',online:'● Ranking conectado',offline:'● Solo práctica',saving:'Guardando respuesta…',saved:'Última sincronización',seconds:'hace {n} s',correctAns:'¡Correcto! +{n} puntos',wrongAns:'¡Fallaste! La respuesta correcta era: {a}',timeout:'¡Se acabó el tiempo! Respuesta: {a}',scoreBoard:'puntos',playing:'Jugando · {n}/10',done:'Partida terminada',badName:'Escribe un nombre de 2 a 26 caracteres.',pleaseWait:'Comprobando el ranking, inténtalo de nuevo en un momento.',already:'Este dispositivo ya ha participado. Puedes consultar tu puesto.',offlineText:'No se pudo conectar con Firebase. Puedes jugar de práctica, pero no se guardará tu puntuación en el ranking global.',saveError:'No se pudo guardar en Firebase. Comprueba las reglas y la conexión.',newRound:'Ya puedes participar de nuevo: el ranking está vacío.',playAgain:'🎮 JUGAR DE NUEVO',adminClosed:'¡Concurso cerrado! El resultado se ha comunicado a todos los participantes.',adminError:'No se pudo cerrar el concurso online. Comprueba los permisos.',winTitle:'¡CAMPEÓN DEL CONCIERTO!',winSub:'¡Has quedado en el primer puesto!',winClose:'🏅 VER RANKING',nobody:'No hay resultados registrados todavía.',winner:'🥇 Ganador: {n}',finalPoints:'{n} PUNTOS',roundError:'Error al cargar las preguntas.',adminResetError:'No se ha podido vaciar el ranking. Revisa las nuevas reglas de Firestore y vuelve a introducir rafa1234.'},
+  zh:{eyebrow:'✨ 你還記得多少呢？ ✨',title:'🏆 音樂會最終挑戰賽',intro:'10 道題 · 4 個選項 · 答得越快，加分越多！',welcomeTitle:'你叫什麼名字？',welcomeDesc:'輸入姓名或暱稱，加入排行榜。每個裝置只能參加一次。',nameLabel:'你的名字',namePlace:'輸入姓名或暱稱…',start:'🚀 開始挑戰！',private:'🔐 你的暱稱與分數會顯示在排行榜中。',question:'題目',correct:'答對',points:'分數',time:'時間',finishedTitle:'挑戰完成！',finishedDesc:'你的成績已列入排行榜，請等待比賽結束。',closedTitle:'比賽已結束！',closedDesc:'不再接受作答。以下是最終排行榜。',rankTitle:'🏅 即時排行榜',rankNote:'分數即時同步，畫面每秒更新。',emptyRank:'目前還沒有參賽者，快來當第一位！',footer:'🎶 瀏覽器原創音樂 · 每題 15 秒 · 計時精度達 0.001 秒。',back:'↩ 回到節目表',soundOn:'🔊 音樂已開啟',soundOff:'🔇 音樂已關閉',otherLang:'🌐 Español',connecting:'● 正在連線…',online:'● 排行榜已連線',offline:'● 僅供練習',saving:'正在儲存作答…',saved:'最近同步',seconds:'{n} 秒前',correctAns:'答對了！+{n} 分',wrongAns:'答錯了！正確答案：{a}',timeout:'時間到！正確答案：{a}',scoreBoard:'分',playing:'進行中 · {n}/10',done:'挑戰完成',badName:'請輸入 2 至 26 個字的名稱。',pleaseWait:'正在檢查排行榜，請稍後再試。',already:'此裝置已參賽，可以查看排名。',offlineText:'無法連線至 Firebase。你仍可練習，但成績不會儲存到線上排行榜。',saveError:'無法儲存到 Firebase，請檢查存取規則與網路。',newRound:'新一輪比賽已開始，排行榜已清空，可以再次參加！',playAgain:'🎮 再玩一次',adminClosed:'比賽已結束，所有參賽者都會收到結果！',adminError:'無法在線上結束比賽，請檢查權限。',winTitle:'音樂會總冠軍！',winSub:'恭喜你獲得第一名！',winClose:'🏅 查看排行榜',nobody:'目前沒有任何紀錄。',winner:'🥇 冠軍：{n}',finalPoints:'{n} 分',roundError:'載入題目時發生錯誤。',adminResetError:'無法清空排行榜。請檢查新的 Firestore 規則，然後重新輸入 rafa1234。'}
  };
  let language='es';try{if(localStorage.getItem('concierto_language_2026')==='zh')language='zh';}catch(e){}
  const word=(k)=>TEXT[language][k];
@@ -618,7 +618,7 @@ setLanguage(currentLanguage);
  // Todos reciben las MISMAS diez preguntas para que el ranking sea justo;
  // se varía su orden y la posición de las cuatro opciones.
  const qQuestions=shuffle([0,2,5,6,8,9,11,12,16,21].map(i=>bank[i])).map(q=>({...q,options:shuffle(q.options.map((text,i)=>({text,right:i===0})))}));
- let rounds=0,correct=0,score=0,totalElapsedMs=0,questionStart=0,locked=false,raf=0,nextTimer=0,playerName='',playerUid='',hasStarted=false,gameEnded=false,ranking=[],lastUpdate=0,backendOk=false,backendLoading=true,db=null,user=null,stateRef=null,playersRef=null,fire=null,writeChain=Promise.resolve(),winnerUid=null,celebrated=false,practice=false;
+ let rounds=0,correct=0,score=0,totalElapsedMs=0,questionStart=0,locked=false,raf=0,nextTimer=0,playerName='',playerUid='',hasStarted=false,gameEnded=false,ranking=[],lastUpdate=0,backendOk=false,backendLoading=true,db=null,user=null,stateRef=null,playersRef=null,fire=null,writeChain=Promise.resolve(),winnerUid=null,winnerName='',winnerScore=0,celebrated=false,practice=false,activeRound=1,playerRound=0,stateEnded=false,closingContest=false,lastFeedback=null;
  // Sonido de concurso generado con Web Audio; empieza solamente por gesto del usuario.
  let audioCtx=null,soundOn=true,musicHandle=null,musicBeat=0;
  function ctx(){try{if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx;}catch(e){return null;}}
@@ -638,7 +638,7 @@ setLanguage(currentLanguage);
   for(const [id,key] of Object.entries(fields))$(id).textContent=word(key);
   $('qName').placeholder=word('namePlace');$('qStart').textContent=word('start');$('qBack').textContent=word('back');$('qLangBtn').textContent=word('otherLang');$('qSoundBtn').textContent=word(soundOn?'soundOn':'soundOff');
   if(!backendLoading)$('qNetStatus').textContent=word(backendOk?'online':'offline');
-  if(gameEnded){$('qClosedDesc').textContent=word('closedDesc');if(winnerUid){const w=ranking.find(x=>x.id===winnerUid);$('qWinnerName').textContent=w?fmt('winner',{n:w.name}):'';}}
+  if(gameEnded){$('qClosedDesc').textContent=stateEnded?word('closedDesc'):word('newRound');$('qWinnerName').textContent=winnerName?fmt('winner',{n:winnerName}):word('nobody');} $('qPlayAgain').textContent=word('playAgain');if(lastFeedback&&hasStarted&&locked){$('qFeedback').textContent=fmt(lastFeedback.key,{n:lastFeedback.n,a:lastFeedback.right?.[language]});}
   if(hasStarted&&!locked&&rounds<10)renderQuestion();
   if(hasStarted&&locked&&rounds<=10){$('qQuestionText').textContent=qQuestions[Math.max(0,rounds-1)][language];renderChoices();}
   renderRanking();
@@ -659,31 +659,34 @@ setLanguage(currentLanguage);
  let chosenIndex=-1;
  function renderQuestion(){if(rounds>=10)return;const q=qQuestions[rounds];$('qQuestionText').textContent=q[language];renderChoices();}
  function displayTime(){if(!hasStarted||rounds>=10||gameEnded||locked)return;const elapsed=performance.now()-questionStart,left=Math.max(0,MAX_MS-elapsed);$('qClock').textContent=(left/1000).toFixed(3);$('qTimeBar').style.width=`${left/MAX_MS*100}%`;if(left<=0){answer(-1,true);return;}raf=requestAnimationFrame(displayTime);}
- function startRound(){if(gameEnded)return;if(rounds>=10){finish();return;}chosenIndex=-1;locked=false;updateMetrics();renderQuestion();$('qFeedback').textContent='';$('qTimeBar').style.width='100%';$('qClock').textContent='15.000';questionStart=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(displayTime);}
+ function startRound(){if(gameEnded)return;if(rounds>=10){finish();return;}chosenIndex=-1;locked=false;lastFeedback=null;updateMetrics();renderQuestion();$('qFeedback').textContent='';$('qTimeBar').style.width='100%';$('qClock').textContent='15.000';questionStart=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(displayTime);}
  $('qChoices').addEventListener('click',e=>{const btn=e.target.closest('[data-qchoice]');if(btn)answer(Number(btn.dataset.qchoice),false);});
  function writeScore(finished){
   if(practice){const row=ranking.find(r=>r.id===playerUid);if(row){Object.assign(row,{score,correct,progress:rounds,finished});renderRanking();}return;}
-  if(!backendOk||!playerUid||gameEnded)return;
-  const payload={name:playerName,score,correct,progress:rounds,finished, totalElapsedMs:Math.round(totalElapsedMs),updatedAt:fire.serverTimestamp()};
+  if(!backendOk||!playerUid||gameEnded||playerRound!==activeRound)return;
+  const payload={name:playerName,round:playerRound,score,correct,progress:rounds,finished, totalElapsedMs:Math.round(totalElapsedMs),updatedAt:fire.serverTimestamp()};
   if(finished)payload.finishedAt=fire.serverTimestamp();
-  writeChain=writeChain.then(()=>fire.setDoc(fire.doc(playersRef,playerUid),payload,{merge:true})).catch(err=>{$('qFeedback').textContent=word('saveError');console.warn('Firebase:',err);});
+  writeChain=writeChain.then(()=>{if(!gameEnded&&playerRound===activeRound)return fire.setDoc(fire.doc(playersRef,playerUid),payload,{merge:true});}).catch(err=>{if(!gameEnded)$('qFeedback').textContent=word('saveError');console.warn('Firebase:',err);});
  }
  function answer(index,timedOut){
   if(locked||gameEnded||rounds>=10)return;
   locked=true;cancelAnimationFrame(raf);const elapsed=Math.min(MAX_MS,Math.max(0,performance.now()-questionStart));const q=qQuestions[rounds];chosenIndex=index;
   const good=!timedOut&&index>=0&&q.options[index].right;
   const bonus=good?Math.max(0,Math.round(MAX_MS-elapsed)):0;
-  if(good){correct++;score+=1000+bonus;totalElapsedMs+=elapsed;effectRight();$('qFeedback').textContent=fmt('correctAns',{n:(1000+bonus).toLocaleString()});}
-  else{totalElapsedMs+=MAX_MS;if(soundOn)effectWrong();const right=q.options.find(x=>x.right).text[language];$('qFeedback').textContent=fmt(timedOut?'timeout':'wrongAns',{a:right});}
+  if(good){correct++;score+=1000+bonus;totalElapsedMs+=elapsed;effectRight();lastFeedback={key:'correctAns',n:(1000+bonus).toLocaleString()};}
+  else{totalElapsedMs+=MAX_MS;if(soundOn)effectWrong();lastFeedback={key:timedOut?'timeout':'wrongAns',right:q.options.find(x=>x.right).text};}
+  $('qFeedback').textContent=fmt(lastFeedback.key,{n:lastFeedback.n,a:lastFeedback.right?.[language]});
   rounds++;renderChoices();$('qClock').textContent=(Math.max(0,MAX_MS-elapsed)/1000).toFixed(3);$('qTimeBar').style.width=`${Math.max(0,MAX_MS-elapsed)/MAX_MS*100}%`;
   updateMetrics();writeScore(rounds>=10);
   nextTimer=setTimeout(()=>{if(gameEnded)return;if(rounds>=10)finish();else startRound();},1300);
  }
  async function finish(){if(gameEnded)return;cancelAnimationFrame(raf);musicStop();showPart('qFinished');$('qFinalCorrect').textContent=`${correct}/10`;$('qFinalScore').textContent=score.toLocaleString(language==='zh'?'zh-TW':'es-ES');$('qProgress').style.width='100%';}
- function endView(){gameEnded=true;cancelAnimationFrame(raf);clearTimeout(nextTimer);musicStop();if(winnerUid===playerUid&&playerUid){showWinner();return;}showPart('qClosed');const w=ranking.find(x=>x.id===winnerUid);$('qWinnerName').textContent=w?fmt('winner',{n:w.name}):word('nobody');}
+ function endView(){gameEnded=true;cancelAnimationFrame(raf);clearTimeout(nextTimer);musicStop();$('qPlayAgain').classList.toggle('q-hidden',stateEnded||!hasStarted||activeRound<=playerRound);if(winnerUid===playerUid&&hasStarted){showWinner();return;}showPart('qClosed');$('qClosedDesc').textContent=stateEnded?word('closedDesc'):word('newRound');$('qWinnerName').textContent=winnerName?fmt('winner',{n:winnerName}):word('nobody');}
  function burst(){const root=$('qSparkles');const colors=['#ffe080','#f783d0','#98ffee','#b6c7ff','#ffffff','#ff9966'];root.innerHTML='';for(let i=0;i<175;i++){const s=document.createElement('i');s.className='q-confetti';s.style.setProperty('--col',colors[i%colors.length]);s.style.setProperty('--left',(Math.random()*100)+'vw');s.style.setProperty('--time',(2+Math.random()*4)+'s');s.style.setProperty('--delay',(Math.random()*2)+'s');s.style.setProperty('--rot',(Math.random()*360)+'deg');s.style.setProperty('--drift',((Math.random()-.5)*260)+'px');root.appendChild(s);}setTimeout(()=>{root.innerHTML='';},9000);}
- function showWinner(){if(celebrated)return;celebrated=true;showPart('qClosed');$('qCelebration').classList.add('show');const w=ranking.find(x=>x.id===winnerUid);$('qWinName').textContent=w?.name||playerName;$('qWinScore').textContent=fmt('finalPoints',{n:(w?.score||score).toLocaleString()});burst();soundOn=true;fanfare();app.scrollIntoView({block:'start'});}
- $('qWinClose').addEventListener('click',()=>{$('qCelebration').classList.remove('show');soundOn=false;showPart('qClosed');renderRanking();});
+ function showWinner(){if(celebrated)return;celebrated=true;showPart('qClosed');$('qCelebration').classList.add('show');$('qWinName').textContent=winnerName||playerName;$('qWinScore').textContent=fmt('finalPoints',{n:Number(winnerScore||score).toLocaleString(language==='zh'?'zh-TW':'es-ES')});burst();soundOn=true;fanfare();app.scrollIntoView({block:'start'});}
+ $('qWinClose').addEventListener('click',()=>{$('qCelebration').classList.remove('show');soundOn=false;endView();renderRanking();});
+ function restartLocally(){if(stateEnded||!backendOk||activeRound<=playerRound)return;hasStarted=false;gameEnded=false;celebrated=false;rounds=0;correct=0;score=0;totalElapsedMs=0;locked=false;playerRound=0;playerName='';lastFeedback=null;winnerUid=null;winnerName='';winnerScore=0;cancelAnimationFrame(raf);clearTimeout(nextTimer);$('qCelebration').classList.remove('show');$('qName').value='';$('qFormError').textContent='';showPart('qWelcome');localize();}
+ $('qPlayAgain').addEventListener('click',restartLocally);
  // El ranking se escucha en tiempo real. El refresco visual adicional es de 1 segundo.
  async function setupFirebase(){
   try{
@@ -698,18 +701,77 @@ setLanguage(currentLanguage);
    let readyState=false,readyPlayers=false;
    const check=()=>{if(readyState&&readyPlayers){backendOk=true;backendLoading=false;$('qNetStatus').textContent=word('online');renderRanking();}};
    const fail=e=>{console.warn('Concurso Firebase:',e);backendOk=false;backendLoading=false;practice=true;$('qNetStatus').textContent=word('offline');$('qFormError').textContent=word('offlineText');};
-   store.onSnapshot(stateRef,s=>{readyState=true;const data=s.data();if(data?.ended){winnerUid=data.winnerUid||null;gameEnded=true;if(winnerUid===playerUid&&hasStarted)showWinner();else endView();}check();},fail);
-   store.onSnapshot(playersRef,s=>{readyPlayers=true;ranking=ordered(s.docs.map(d=>({...d.data(),id:d.id})));lastUpdate=Date.now();renderRanking();if(gameEnded){if(winnerUid===playerUid&&hasStarted)showWinner();else{$('qWinnerName').textContent=ranking.find(x=>x.id===winnerUid)?fmt('winner',{n:ranking.find(x=>x.id===winnerUid).name}):word('nobody');}}check();},fail);
+   // Firestore avisa del cierre, la eliminación y la reapertura a todas las pestañas.
+   store.onSnapshot(stateRef,s=>{
+    readyState=true;
+    const data=s.data()||{};
+    activeRound=Math.max(1,Number(data.round)||1);
+    stateEnded=data.ended===true;
+    const lastClosed=Number(data.lastClosedRound)||0;
+    if(stateEnded){
+     winnerUid=data.winnerUid||null;winnerName=data.winnerName||'';winnerScore=Number(data.winnerScore)||0;
+     gameEnded=true;endView();
+    }else if(hasStarted&&playerRound<activeRound){
+     // Incluso si el móvil perdió la notificación de cierre, recibe el resultado
+     // desde el documento de control antes de iniciar la siguiente ronda.
+     winnerUid=(lastClosed===playerRound?data.lastWinnerUid:null)||winnerUid;
+     winnerName=(lastClosed===playerRound?data.lastWinnerName:'')||winnerName;
+     winnerScore=(lastClosed===playerRound?Number(data.lastWinnerScore):0)||winnerScore;
+     gameEnded=true;endView();
+    }else if(!hasStarted){
+     gameEnded=false;
+     if($('qClosed')&&!$('qClosed').classList.contains('q-hidden'))showPart('qWelcome');
+    }
+    if(gameEnded&&winnerUid===playerUid&&hasStarted)showWinner();
+    check();
+   },fail);
+   store.onSnapshot(playersRef,s=>{
+    readyPlayers=true;
+    // Filtro de ronda explícito: el ranking nuevo nunca muestra resultados antiguos.
+    ranking=ordered(s.docs.map(d=>({...d.data(),id:d.id})).filter(p=>(Number(p.round)||1)===activeRound));
+    lastUpdate=Date.now();renderRanking();
+    if(gameEnded){$('qWinnerName').textContent=winnerName?fmt('winner',{n:winnerName}):word('nobody');}
+    check();
+   },fail);
   }catch(e){console.warn('Concurso Firebase:',e);backendLoading=false;backendOk=false;practice=true;$('qNetStatus').textContent=word('offline');$('qFormError').textContent=word('offlineText');}
  }
  async function stopContest(){
-  if(!backendOk||!user){$('qFormError').textContent=word('adminError');return;}
+  if(!backendOk||!user||closingContest){$('qFormError').textContent=word('adminError');return;}
+  closingContest=true;
   $('qStart').disabled=true;$('qFormError').textContent=word('saving');
   try{
-   const all=await fire.getDocs(playersRef);const rank=ordered(all.docs.map(d=>({...d.data(),id:d.id})));const winner=rank[0]||null;
-   await fire.runTransaction(db,async tx=>{const existing=await tx.get(stateRef);if(existing.exists()&&existing.data().ended)return;tx.set(stateRef,{ended:true,endedAt:fire.serverTimestamp(),winnerUid:winner?.id||'',winnerName:winner?.name||'',winnerScore:winner?.score||0},{merge:true});});
-   $('qFormError').textContent=word('adminClosed');
-  }catch(err){console.warn(err);$('qFormError').textContent=word('adminError');}finally{$('qStart').disabled=false;}
+   // 1. Obtener una foto del ranking para anunciar al ganador, incluso tras borrar la lista.
+   const all=await fire.getDocs(playersRef);
+   const current=Number(activeRound)||1;
+   const rank=ordered(all.docs.map(d=>({...d.data(),id:d.id})).filter(p=>(Number(p.round)||1)===current));
+   const winner=rank[0]||null;
+   // 2. Bloquear entradas y guardar una copia reducida del resultado.
+   await fire.runTransaction(db,async tx=>{
+    const existing=await tx.get(stateRef);const data=existing.data()||{};
+    if(data.ended===true)throw new Error('La ronda ya está cerrada; revisa el panel de Firebase.');
+    if((Number(data.round)||1)!==current)throw new Error('La ronda cambió mientras se cerraba.');
+    tx.set(stateRef,{ended:true,round:current,endedAt:fire.serverTimestamp(),resetBy:user.uid,winnerUid:winner?.id||'',winnerName:winner?.name||'',winnerScore:Number(winner?.score)||0},{merge:true});
+   });
+   // 3. Borrado real de TODOS los documentos de participantes (máx. 200 por lote).
+   // No se toca ninguna otra colección de ARM1.
+   const docs=await fire.getDocs(playersRef);
+   for(let i=0;i<docs.docs.length;i+=200){
+    const batch=fire.writeBatch(db);
+    docs.docs.slice(i,i+200).forEach(doc=>batch.delete(doc.ref));
+    await batch.commit();
+   }
+   // 4. Reabrir inmediatamente y aumentar la ronda. Conservamos SOLO el nombre,
+   // el UID y los puntos del último ganador para que su fanfarria pueda mostrarse
+   // incluso si la notificación de cierre se perdió por mala cobertura.
+   await fire.runTransaction(db,async tx=>{
+    const existing=await tx.get(stateRef);const data=existing.data()||{};
+    if(data.ended!==true||data.resetBy!==user.uid||Number(data.round)!==current)throw new Error('No se pudo validar el reinicio.');
+    tx.update(stateRef,{ended:false,round:current+1,resetBy:'',winnerUid:'',winnerName:'',winnerScore:0,lastClosedRound:current,lastWinnerUid:winner?.id||'',lastWinnerName:winner?.name||'',lastWinnerScore:Number(winner?.score)||0,reopenedAt:fire.serverTimestamp()});
+   });
+   $('qFormError').textContent=word('newRound');
+   $('qName').value='';
+  }catch(err){console.warn('Firebase reset:',err);$('qFormError').textContent=word('adminResetError');}
+  finally{closingContest=false;$('qStart').disabled=false;}
  }
  $('qLoginForm').addEventListener('submit',async e=>{
   e.preventDefault();if(soundOn)ctx();const entered=$('qName').value.trim().replace(/\s+/g,' ');
@@ -722,11 +784,11 @@ setLanguage(currentLanguage);
   try{
    if(backendOk){
     const ref=fire.doc(playersRef,playerUid);const prev=await fire.getDoc(ref);
-    if(prev.exists()){const d=prev.data();$('qFormError').textContent=word('already');$('qFinalCorrect').textContent=`${d.correct||0}/10`;$('qFinalScore').textContent=Number(d.score||0).toLocaleString();showPart('qFinished');return;}
-    await fire.setDoc(ref,{name:entered,score:0,correct:0,progress:0,finished:false,totalElapsedMs:0,joinedAt:fire.serverTimestamp()});
+    if(prev.exists()&&(Number(prev.data().round)||1)===activeRound){const d=prev.data();$('qFormError').textContent=word('already');$('qFinalCorrect').textContent=`${d.correct||0}/10`;$('qFinalScore').textContent=Number(d.score||0).toLocaleString();showPart('qFinished');return;}
+    await fire.setDoc(ref,{name:entered,round:activeRound,score:0,correct:0,progress:0,finished:false,totalElapsedMs:0,joinedAt:fire.serverTimestamp()});
    }else{practice=true;playerUid='practice-'+Math.floor(Math.random()*1e9);ranking=[{id:playerUid,name:entered,score:0,correct:0,progress:0,finished:false}];renderRanking();}
    if(gameEnded){endView();return;}
-   hasStarted=true;showPart('qPlaying');if(soundOn)musicStart();startRound();
+   playerRound=activeRound;hasStarted=true;showPart('qPlaying');if(soundOn)musicStart();startRound();
   }catch(err){console.warn(err);$('qFormError').textContent=word('saveError');}finally{$('qStart').disabled=false;}
  });
  $('qBack').addEventListener('click',()=>{musicStop();location.hash='inicio';location.reload();});
