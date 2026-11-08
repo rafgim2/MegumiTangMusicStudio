@@ -300,18 +300,31 @@ html.quiz-mode #quiz-app{display:block}
 <script>
 'use strict';
 /* =======================================================================
-   CÓMO AÑADIR LOS VÍDEOS MÁS ADELANTE:
-   Sustituye las comillas vacías por un enlace de YouTube (o de vídeo MP4).
-   Ejemplo:  1: 'https://www.youtube.com/watch?v=XXXXXXXXXXX',
-   Luego guarda este HTML y vuelve a publicarlo. Cada vídeo aparecerá
-   automáticamente en el botón "Ver vídeo" de su actuación.
-   NOTA: los enlaces guardados editando el HTML serán visibles a TODOS
-   los visitantes que abran la versión publicada de la web.
+   VIDEOS DEL CONCIERTO: 18 archivos MP4 en Google Drive.
+   Cada número corresponde al mismo número de actuación del programa.
+   El reproductor se muestra dentro de la ventana modal de la web.
+   Importante: los espectadores necesitan acceso de lectura a los vídeos
+   en Google Drive (preferiblemente "Cualquier persona con el enlace").
    ======================================================================= */
 const VIDEO_LINKS = {
-  1:'',  2:'',  3:'',  4:'',  5:'',  6:'',
-  7:'',  8:'',  9:'', 10:'', 11:'', 12:'',
- 13:'', 14:'', 15:'', 16:'', 17:'', 18:''
+ 1: 'https://drive.google.com/file/d/17nnEXz9dT6TM1FDkMZPiOkNlDV7cc0_R/view',
+ 2: 'https://drive.google.com/file/d/18li39fehBI6YpGUW8W0UahuGkwxTytks/view',
+ 3: 'https://drive.google.com/file/d/1Rbv7d60-lzUlBhux7uN6GNxQiu6wQ2hR/view',
+ 4: 'https://drive.google.com/file/d/1d8rsaOGt_z-f16TUU0TxLyOODJqB0TdR/view',
+ 5: 'https://drive.google.com/file/d/1QodBihtT3HfWxhrQKw8j2V4yDq2NluQt/view',
+ 6: 'https://drive.google.com/file/d/1qT0ojIAbzq34j92WUL1_zEH6KxFjxUBo/view',
+ 7: 'https://drive.google.com/file/d/1mDQ8DGNZJfOUhZwge9Aa0jWJgwhWjlaU/view',
+ 8: 'https://drive.google.com/file/d/1KpoaIFwJIV_sflkzJcftqamLHa4qMsBz/view',
+ 9: 'https://drive.google.com/file/d/1JTAeXgvPO1-Y60REacpAaK_qCwYSsQVY/view',
+ 10: 'https://drive.google.com/file/d/16wiPvWWynwSEGBnuqlA45YQcg_BeDuxE/view',
+ 11: 'https://drive.google.com/file/d/1u-WOevAEl4Bbe6t0_8A_6EJUC5rPOCcb/view',
+ 12: 'https://drive.google.com/file/d/1kYe58hD_gaFDvRmPocepWk4HdOHfAFQB/view',
+ 13: 'https://drive.google.com/file/d/1Lt68gwBRQ9Plcq-3vYFAlwpdT8vDyZG4/view',
+ 14: 'https://drive.google.com/file/d/1w3T3yFzK1qwI5XhBNfjxyp_R2-jn55Sv/view',
+ 15: 'https://drive.google.com/file/d/1RDeRIXKClE8iUR5DyKw35weU7UhzGm6f/view',
+ 16: 'https://drive.google.com/file/d/19vvKN_aQMVGeJubBJAB6wA6HWWijW0vY/view',
+ 17: 'https://drive.google.com/file/d/19HSsnF_pJgyXDUm9OEzjq6p2N1W0F3m0/view',
+ 18: 'https://drive.google.com/file/d/1IRqha5j4_UjdkpEIOjQPQzKzBPlHsdhc/view'
 };
 
 const ACTUACIONES = [
@@ -615,6 +628,14 @@ function openPicture(key){
 }
 function videoData(url){
  try{const u=new URL(url);const h=u.hostname.toLowerCase().replace(/^www\./,'');let id=null;
+  // Reproduce los vídeos de Drive dentro de la ventana de la web.
+  if(h==='drive.google.com'){
+   const m=u.pathname.match(/^\/file\/d\/([a-zA-Z0-9_-]+)(?:\/|$)/);
+   const driveId=m?m[1]:u.searchParams.get('id');
+   if(driveId&&/^[a-zA-Z0-9_-]+$/.test(driveId)){
+    return {kind:'embed',url:'https://drive.google.com/file/d/'+driveId+'/preview',direct:'https://drive.google.com/file/d/'+driveId+'/view'};
+   }
+  }
   if(h==='youtube.com'||h==='m.youtube.com'||h==='music.youtube.com') {id=u.searchParams.get('v');if(!id&&u.pathname.startsWith('/shorts/'))id=u.pathname.split('/')[2];if(!id&&u.pathname.startsWith('/embed/'))id=u.pathname.split('/')[2];}
   else if(h==='youtu.be'){id=u.pathname.replace(/^\//,'').split('/')[0];}
   if(id&&/^[a-zA-Z0-9_-]{11}$/.test(id))return {kind:'embed',url:'https://www.youtube-nocookie.com/embed/'+id+'?rel=0'};
@@ -626,7 +647,7 @@ function openVideo(n){
  const original=ACTUACIONES.find(x=>x.n===n);if(!original)return;
  const a=actDisplay(original);playUiSound();const raw=(VIDEO_LINKS[n]||'').trim();const data=videoData(raw);let html='';
  if(!data){html=`<div class="video-space"><div class="video-pending"><span class="clapper">🎬</span><h4>${tr('¡Próximamente!','敬請期待！')}</h4><p>${tr('Después del concierto, aquí podrás revivir la actuación de','音樂會結束後，你可以在這裡重溫')} <b>${escapeHtml(a.name)}</b>${currentLanguage==='zh'?' 的演出。':'.'}</p></div></div><p class="modal-hint">${tr('💡 Para añadir el vídeo, abre el archivo HTML y pega el enlace correspondiente en','💡 若要加入影片，請打開 HTML 檔案，將對應影片網址貼到 JavaScript 的')} <code>VIDEO_LINKS</code>${tr(', al principio del bloque JavaScript.',' 區塊。')}</p>`;}
- else if(data.kind==='embed'){html=`<div class="video-space"><iframe src="${escapeHtml(data.url)}" title="${tr('Vídeo de','影片：')} ${escapeHtml(a.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>`;}
+ else if(data.kind==='embed'){html=`<div class="video-space"><iframe src="${escapeHtml(data.url)}" title="${tr('Vídeo de','影片：')} ${escapeHtml(a.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>${data.direct?`<p class="modal-hint">${tr('¿No se reproduce?','無法播放嗎？')} <a href="${escapeHtml(data.direct)}" target="_blank" rel="noopener noreferrer">${tr('Abrir vídeo en Google Drive','在 Google Drive 開啟影片')}</a></p>`:''}`;}
  else if(data.kind==='file'){html=`<div class="video-space"><video controls playsinline preload="metadata" src="${escapeHtml(data.url)}">${tr('Tu navegador no puede reproducir este vídeo.','你的瀏覽器無法播放這部影片。')}</video></div>`;}
  else{html=`<div class="video-space"><div class="video-pending"><span class="clapper">🎬</span><h4>${tr('¡El vídeo ya está disponible!','影片已經上線！')}</h4><p>${tr('El enlace se abre en una nueva pestaña.','影片會在新分頁中開啟。')}</p><p><a class="btn primary small" target="_blank" rel="noopener noreferrer" href="${escapeHtml(data.url)}">▶ ${tr('Abrir vídeo','開啟影片')}</a></p></div></div>`;}
  openModal(`${tr('Actuación','演出')} ${n} · ${a.name}`,html);
