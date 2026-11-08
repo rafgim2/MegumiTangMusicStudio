@@ -220,17 +220,44 @@ html.quiz-mode #quiz-app{display:block}
 @media(max-height:480px) and (orientation:landscape){.modal--video .modal-card{max-height:calc(100dvh - 14px)}.modal--video .video-space{height:60dvh;max-height:60dvh;min-height:130px;flex:0 0 auto}.modal--video .modal-top{margin-bottom:3px}.video-embed-actions{margin:5px 0}.video-embed-tip{display:none}}
 @media(prefers-reduced-motion:reduce){.drive-loading .drive-spinner{animation:none}}
 
+
+/* Galería fotográfica de la audición: carga progresiva y visor accesible. */
+.audition-photos{background:linear-gradient(180deg,#fffaf2,#f5f0ff);}
+.audition-photos .photo-gallery-intro{max-width:680px;margin:0 auto;color:#796b7d;line-height:1.65}
+.audition-photo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:30px auto 15px}
+.audition-photo-card{position:relative;aspect-ratio:4/3;display:block;min-width:0;padding:7px;border:2px solid #eadde9;border-radius:20px;background:#fff;box-shadow:0 7px 0 #e7ddea,0 10px 24px #61507718;overflow:hidden;transition:transform .2s,box-shadow .2s;text-decoration:none;cursor:zoom-in;color:#675076}
+.audition-photo-card:hover{transform:translateY(-4px);box-shadow:0 10px 0 #e7ddea,0 16px 27px #61507722}
+.audition-photo-card img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px;background:#f5e9e7;transition:transform .3s}
+.audition-photo-card:hover img{transform:scale(1.035)}
+.audition-photo-card .photo-badge{position:absolute;bottom:15px;right:14px;border-radius:100px;background:#fffdf3e8;color:#675076;padding:5px 9px;font:800 .72rem 'Baloo 2',sans-serif;box-shadow:0 2px 7px #3333}
+.audition-photo-card .photo-error{display:none;position:absolute;inset:7px;background:#fff5ee;border-radius:13px;align-items:center;justify-content:center;text-align:center;padding:13px;font-weight:700;font-size:.82rem}
+.audition-photo-card.is-error img{visibility:hidden}.audition-photo-card.is-error .photo-error{display:flex}
+.photo-gallery-actions{text-align:center;margin:23px auto 0;display:flex;justify-content:center;flex-wrap:wrap;gap:13px;align-items:center}
+.photo-gallery-actions .btn{font-size:1rem}.photo-gallery-actions .photo-all-link{font-weight:800;text-decoration:underline;text-underline-offset:4px;font-size:.92rem;color:#66517b;padding:10px}
+.photo-gallery-status{font-size:.86rem;color:#89738c;text-align:center;font-weight:700;margin:14px 0 0}
+.audition-photo-lightbox{display:grid;grid-template-columns:50px minmax(0,1fr) 50px;align-items:center;gap:10px;max-width:100%;width:100%}
+.audition-photo-lightbox .photo-modal-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:150px;max-height:70vh;background:#eae3ee;border-radius:15px;overflow:hidden}
+.audition-photo-lightbox .photo-modal-stage img{display:block;max-width:100%;max-height:70vh;width:auto;height:auto;object-fit:contain}
+.audition-photo-lightbox .photo-modal-stage .photo-loading-message{position:absolute;bottom:10px;left:10px;right:10px;background:#fffcf1dc;padding:10px;text-align:center;border-radius:10px;font-size:.8rem;color:#6b507b}
+.audition-photo-lightbox .photo-modal-stage img:not([hidden])~.photo-loading-message{display:none}
+.audition-photo-lightbox .photo-arrow{width:45px;height:60px;border:0;border-radius:15px;background:#f4e3f2;color:#583f71;font-size:2rem;font-weight:800;display:grid;place-items:center;touch-action:manipulation}
+.audition-photo-lightbox .photo-arrow:hover{background:#ead2e8}
+.photo-modal-bottom{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:15px;margin-top:13px;font-size:.87rem;font-weight:800;color:#75627d}
+.photo-modal-bottom a{color:#625083;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.audition-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}}
+@media(max-width:650px){.audition-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.audition-photo-card{border-radius:15px;padding:5px}.audition-photo-card img{border-radius:10px}.audition-photo-lightbox{grid-template-columns:32px minmax(0,1fr) 32px;gap:4px}.audition-photo-lightbox .photo-arrow{width:31px;height:48px;font-size:1.55rem}.audition-photo-lightbox .photo-modal-stage,.audition-photo-lightbox .photo-modal-stage img{max-height:67vh}.mobile-nav a{min-width:0;flex:1;font-size:.61rem}.mobile-nav a span{font-size:1.17rem}}
+
 </style>
 <script>if(location.hash==='#concurso-final')document.documentElement.classList.add('quiz-mode');</script>
 </head>
 <body>
 <div class="topbar"><div class="navwrap">
   <a class="brand" href="#inicio" aria-label="Volver al inicio"><span class="brandmark">♫</span><span>Creciendo con<br>la Música <small>2026</small></span></a>
-  <nav class="navlinks" aria-label="Navegación principal"><a href="#programa">Programa</a><a href="#dibujos">Nuestros artistas</a><a href="#megumi">La profesora</a><a href="#colaboradores">Colaboradores</a></nav>
+  <nav class="navlinks" aria-label="Navegación principal"><a href="#programa">Programa</a><a href="#dibujos">Nuestros artistas</a><a href="#megumi">La profesora</a><a href="#colaboradores">Colaboradores</a><a href="#fotos">Fotos</a></nav>
   <div class="navtools"><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false" aria-label="Activar o desactivar los efectos de sonido" title="Activar o desactivar los efectos de sonido">🔇 <span>Efectos</span></button>
   <button class="lang-toggle" id="languageToggle" type="button" title="Cambiar a chino tradicional" aria-label="Cambiar a chino tradicional"><span aria-hidden="true">🌐</span> <span id="languageLabel">繁體中文</span></button></div>
 </div></div>
-<nav class="mobile-nav" aria-label="Navegación móvil"><a href="#inicio"><span>🏠</span>Inicio</a><a href="#programa"><span>🎼</span>Programa</a><a href="#dibujos"><span>🎨</span>Artistas</a><a href="#megumi"><span>💌</span>Mensaje</a><a href="#colaboradores"><span>💛</span>Gracias</a></nav>
+<nav class="mobile-nav" aria-label="Navegación móvil"><a href="#inicio"><span>🏠</span>Inicio</a><a href="#programa"><span>🎼</span>Programa</a><a href="#dibujos"><span>🎨</span>Artistas</a><a href="#megumi"><span>💌</span>Mensaje</a><a href="#colaboradores"><span>💛</span>Gracias</a><a href="#fotos"><span>📸</span>Fotos</a></nav>
 <main>
 <header class="hero" id="inicio">
 <div class="hero-body"><div class="hero-copy"><div class="eyebrow">🌸 Concierto de alumnos · 2026 🌸</div>
@@ -312,6 +339,22 @@ html.quiz-mode #quiz-app{display:block}
 <div class="gallery-grid"><button class="paper-frame" type="button" data-image="dibujos" aria-label="Ampliar los dibujos de los alumnos"><img id="studentArt" alt="Mis queridos alumnos: dibujos de Emma, Rebecca, Jaume, Sophie, Elena, Xinjie, Nick, Lola, Bruno, Sofía, Max, Sicheng, Toni, María y Jasper" loading="lazy"></button>
 <div class="gallery-copy"><span class="paint-chip">¡Estas son nuestras estrellas!</span><h3>Grandes sueños<br>en pequeñas manos ✨</h3><p>Los protagonistas del concierto son ellos. Unos dibujos únicos que nos recuerdan que lo más bonito es aprender, compartir y atreverse a subir al escenario.</p><div class="names"><span>Emma</span><span>Rebecca</span><span>Jaume</span><span>Sophie</span><span>Elena</span><span>Xinjie</span><span>Nick</span><span>Lola</span><span>Bruno</span><span>Sofía</span><span>Max</span><span>Sicheng</span><span>Toni</span><span>María</span><span>Jasper</span></div><button type="button" class="btn small secondary" data-image="dibujos">🔍 Ver todos los dibujos</button></div></div>
 </div></section>
+
+<section class="section audition-photos" id="fotos"><div class="container">
+ <div class="section-head">
+  <span class="kicker">📸 Recuerdos para siempre</span>
+  <h2>Fotos de la audición</h2>
+  <p class="photo-gallery-intro">Los mejores momentos sobre el escenario y entre bastidores. Pulsa sobre cada foto para verla ampliada y pasar a la siguiente.</p>
+  <span class="underline"></span>
+ </div>
+ <div class="audition-photo-grid" id="auditionPhotoGrid" aria-label="Galería de fotografías de la audición"></div>
+ <p class="photo-gallery-status" id="photoGalleryStatus" aria-live="polite">150 fotografías</p>
+ <div class="photo-gallery-actions">
+  <button class="btn secondary" type="button" id="showMorePhotos">📷 Ver más fotos</button>
+  <a class="photo-all-link" href="https://drive.google.com/drive/folders/1ktHHv_PKC47kcqCHLSAryeAyP6OMPukw?usp=drive_link" target="_blank" rel="noopener noreferrer">Ver la carpeta completa en Drive ↗</a>
+ </div>
+</div></section>
+
 <section class="section teacher" id="megumi"><div class="container"><div class="section-head"><span class="kicker">💌 Una carta especial</span><h2>Palabras de la profesora</h2><p>Un mensaje de Megumi Tang para las familias y sus alumnos.</p><span class="underline"></span></div>
 <div class="teacher-layout"><div class="teacher-art"><img id="teacherArt" loading="lazy" alt="Tarjeta ilustrada de Megumi Tang con su mensaje a las familias"><span class="sticker" aria-hidden="true">💖</span></div>
 <article class="letter"><h3>Queridas familias...</h3>
@@ -436,6 +479,14 @@ const ACT_ZH = {
  18:{name:'Rafael Gimeno、Jasper 與 Megumi Tang',detail:'Rafael Gimeno（鋼琴）· Jasper（大提琴）· Megumi Tang',work:'《聖胡安之夜》'}
 };
 const UI_ZH = {
+ '.navlinks a:nth-child(5)':'照片',
+ '.mobile-nav a:nth-child(6)':'<span>📸</span>照片',
+ '.audition-photos .section-head .kicker':'📸 永遠珍藏的回憶',
+ '.audition-photos .section-head h2':'音樂會照片',
+ '.audition-photos .section-head .photo-gallery-intro':'舞臺上、舞臺下的美好時刻。點擊照片放大欣賞，並可切換上一張或下一張。',
+ '#showMorePhotos':'📷 顯示更多照片',
+ '.photo-gallery-actions .photo-all-link':'在 Google Drive 查看全部照片 ↗',
+
  '#letras .section-head .kicker':'♫ 一起唱歌 ♫',
  '#letras .section-head h2':'一起唱中文歌！',
  '#letras .section-head p':'Lola、Bruno 與 Max 演唱的歌曲。每句都附有繁體中文與西班牙文歌詞，歡迎全家一起唱。',
@@ -560,9 +611,126 @@ function setLanguage(lang){
  soundButton.innerHTML= (soundEnabled?'🔊':'🔇')+' <span>'+tr(soundEnabled?'Efectos activados':'Efectos',soundEnabled?'音效已開啟':'音效')+'</span>';
  soundButton.title=tr('Activar o desactivar los efectos de sonido','開啟或關閉音效');
  soundButton.setAttribute('aria-label',soundButton.title);
- renderActs();renderSponsors();
+ renderActs();renderSponsors();updateGalleryStatus();
  try{localStorage.setItem('concierto_language_2026',currentLanguage);}catch(e){}
 }
+
+
+/* Fotografías de la audición: IDs reales de la carpeta compartida. */
+const AUDITION_PHOTO_IDS = ["1vGx02PVLfXizTgNahMqOzRIxptXIgvm3","1m7UaSJZgzcsYKlse4ihLsQcx1TiI0IwN","1glzr2uKJi9oriRyC3kYhE8m9DqKBV3Sq","12M1U66MFPYJ00UY5VUzKpV8V1pcqNiDD","1hg_Q8QvtAuOxkMYDjyfXV4_-_5-3GsnZ","1XEnNcTu_uFfcAk4FL9wyIvvYr_XCk7Gf","1jTcKOD21xTEdAxl8JOD_w9iW-DLgbtFM","1RuJasArUOywht4z8bzhCryF_-lxRGfWM","1RsEbc_OE6OJ7y2tLI0e2uKBgIVKqFmMx","1Qtka0n2Yf7ZkaK11CVNeVxK1xMLponN6","1jjUrBh6vQiaLiDxKTGE7jhaG4weKPcpO","1sw1aggOq14yZox7yDAolxbk7H0zBs7j9","1ZLZij6LIU-2dtcOfHoPaGsrJtRyAWRFT","1JQjsje0zCb4gMXMI0wXdBZkSIqsS866v","1hP4KCptH0qVb4GTzExpMGwkONhd92dL4","1JSaYZw8-ji00QI0M9lp0IGQrLPwIt5Al","1nj8PfdEZ6YnKKDRsrZMatbWg1rBSmLru","1OuP9L5ebsQpW9p6l9b0gzmpI6zu0_fHz","1gE5mhczqknYl0z6jWIRQkL3v7BXXG1Qr","1ztpO3UrPaNa8eaewmlLV13MjHKYm-TT3","1cTxLzUOkaE5WUwxc5iwdQD7fVZhf7TFG","1W2E-f_BuiXXGRdlQVGORr-zkORIhLHbG","1zhU63JqsJpqC6KzWUtRwNFCBjpiHRZO0","1Cev_ruJFksxS8hoi0hOefgxMh-Qb6XZZ","1gVGHTjlzfVsTvCfkz7gK_MskCb9UE9VR","11qk8g-fupZ7qxWrXABW23ObHoLKJlI2g","1uQxuGP2eG_G1BWXmy3huBXVkXC0JZBEd","112RTwjTb-yxSyTQBN9FhMmXhZPbHxSty","1R2EhNe_q3AFS6L2pAppN6Q6DORZmdMyD","1yVALhoZooZFpUBeuxf7y4gAib-0DA0Bs","1yHiSbwrIgVrbJSelACSlUO0wdmn_9j-x","1mKmu6U9BNoPekC4QBbCTsWDXKRmSX9zg","1UmpItVDFPxKdgdLScF8MSyFTfpawBqz3","1oCTO-NvxaQhn89UggVQfTIonbwnSbkyY","1WFNbNETvaHj6mm9PzQFDOxupe9xHIytG","1sBRAaRanHxhdxOPPtNLiLvq1O5XsZ4MY","1ic-dCxkF1BYwjP9qkLzL5ibaKj4qTato","1wdn13cI5OLOCJw7TQEac2Rm_Gqsr-TKF","1ZGFuZ9I8GT8o6QuCLXspeG3cY7ydPP6n","1ULyluy4wS2UP3NR8xP7MVxzhdEBSvunL","1l83KPQcnoffWix00gP0U0b4p6jRSO08k","1F_3Tv7cP4DfjzFIn8i81nE00SuHy_vUL","1QyX_xn33lxTRT86h9kKM9VwiCDnmnC7I","13ebcMqxClvxtmnpES2INiY5DgXEumKBB","1-bep5OtWCAwqbDbXp5Fg2o-mMZVJI_r_","1_FH3VoycvlviWPTQzxOhbd2e5DqgWsRb","1hrkQQ1M9SXn_cqyNX3kwfZNKRseMp6ar","1oUba_E6xT8aSU1YdQ1hcCIrb8tbEk0QS","1nUDWnm79NgUvClxufAwozUWCTfeIcoMl","19hRUZx6p9Kfh6LvgIhj3Xu7AmCitzw9e","17t-hGXodWtCsVvpvGPRLaLiiSN-I4sAA","1zNyPDytQh9IizsTzt4UQt-4TvT8PNG3a","1ErC6bfhVVKGGPJpymggWFn3jd7Nd1NYF","1oGYjRR4HPylxVNblqAu8fKgTpqhXfMXm","1wMnO44TKW52ahSz5-QCdH0r8DB6j567x","1pqen1BC9SbZtR8gDOzT1uZnxzCTnY_kp","1QUuZs9UnI2LastS7W8_4SwlTJ5ubADON","1OxfPWmx_7xb5s-fBllp0fB7SFu-pp46x","1DAwMpo_kT1rp0BPbMREaa4Ew8ppKcYsC","1jgzk-m-iKaB2Zk0X4n2YV-tOKeeaToLv","1vE7_L0NhlkK8N9I56KS7iJR34FkyATO1","1MNBVK_2s5vEVwrGmA_AknD3aVTGS29JT","1HK8S0rAeGNeyxE3bWjE1u5FIh8iBME02","1vK1a61iD0o2jDdrUK7AF3PBWF9xMZ4DZ","1WQfli7oumApHu-pbuGRA-pPSaYk_jjaA","1msE_zne9I7iIvQerbYLfMakrR3KvUkkL","1bUVJ2EeJXhEURk-lcquMKrhCT6vmYnfy","1CASJiumMoq12aFuMkC8DeYbr0nbkUkQG","1yVO5bxMHATVcYJGNlRvGx2ybuHOXLKFN","1gAW_9Fy1BEmQ7082wB-Q-Qlzl0n6Q9Yx","1mymaVyDwV4iLn0pjKNbF9r6JAvcqwhMR","1pYIaJM-6wXO4GCd1KR2cBCCrNply0czn","1LsBoRM6YhUDEWz6xX9IpGdoCcDa8a_sb","1fSYCNvlAyR9tsEJyGb5EwSlhmwZXEzQ-","1mUjQlZBgRR8nltx1vFoiXTfOF2xTi_JF","14SIU8sy_i8a2heZhv_E8zwm8-tIGrefv","1OXwvyeopR7bNR9A-v6MXzGcNAowzz97i","14Cuawq0Ws1NrY7MxtfWq3zcZaUJxLtfS","12m1NIvaYXG6TMrfQnz2wuRG5zyPtMLTg","1YZFJbSwf_CDE4o1ByRDX-VaSxPf__e-w","1pCVVElCVWPKoo9qwHyy1oONdXoduiJ4H","100faa12meVy52pRkUphwTVtSGG0MBVrI","1usPm4AwBaQseaEtwR2uvSzQc2aVn3sSK","1hlvRABb9DTYpp8yo6uwLKMzK1OhZUPs8","1f2D_J-JH31V6KvDKVtLyNDHsDdXykh95","1ShlPYW25aPXhqvpUGUJ9b9zoQJkShe1I","1B3IpMqFxTOtcym48EoBiMm-Y_C1KJtkG","11m6vc9c0_PVPF6WXWJYufRU3W25u20wv","1VUAVul7SDYHXbB8OEEyuiK5bH85GgA2G","1CKGcxYZlFohbJ00eveaDGMU9jtbuopo3","1Il_fB43zkTErwv2NfSBGUjYz4RjKF_Gz","1RgwCGEfQnap9OHXMg_waQ2B-KlTEmMpY","1lv4cC0yQJjHHFR14XPmGLeeSzMqPImUd","1sWaxVLkMBjPnPS4P3UkTIsCIx4ohv1x4","1KF241IkLFqjXpz40OGd2HAR1b8uMw5FX","1gaBy2h0k8umjzW_VZ_OFFPVTwGuph-WN","1I2Q32haV4VFOC8VHfHx2cDNgCLs1LiP0","1jjqozcfRFvPSFSieb4Zmb3WfVLcJD-4w","1RzaTstgpboGeLnCKqMXu4rmJKDtdT4Iz","1jtF9d5rQ1N5js3elqKttYCJH6rL0Adt_","1XEec9AjB0j3u48wNy3HjnYz0hIOhkfIP","15JR_Rk2EZMPx0c8JzDmG068ONq3iy39o","17COFOc4Uz2Ik2MALseZ_2SpUmC-NyzbI","1dLJonpsdKJn9V0ozjMPzRgXBvYsAbxsJ","18-24XB3TfjVAmXG5L0kLyxm45TPu9DXX","1vG0Bw-52_X6Qo9EtTVgZtB-_Sd5BkKq-","1qOS8lQWSPhtOelqaWCg1kRjPeeEed3mq","1fG0KA6RflU1NK68Z1Hoe_WxFBk4iI_3r","1tf5Rt0MNyRJlz-qFHEt8RtOxuFC7jEQX","10l1yxEVp5qiAPCgpeOSgZ_9nmWHe2Sad","1s08fJvUxtUJIcoIJ9F3Ly4J-jKvGHijX","11Oa8UrNJbxc3qVsfpQwsvOgKlDgIqOSa","1u0n3b8OP8U69oy1SwkwCs5ZHfVQWBLWX","1bLi-59ALGpUDNomvx0jpWObkwA958umM","19AqRAlx2rPPS2HQjZEK5EWFsJtzMHD8f","1-SgXNKbVsNnTuBFlPvEiuSoLiDzjq2Gj","1vTeFBWto0jU0yoa7OSgdL0stx3XPF9eB","1BhK_zC_k9ggrAQzla2PeWQdZXdTa1QGk","1dWJ_LgRAH5QzIf71zdxirQLV57yfwGhD","19wZTchJuPOrqczHoAMctAqYcwjjW5qrW","1J8KoM-RRiq_CP9W6f0wG_MvF0eG1-oXs","1-vkm5efCzaPXdJxfXvSmv55SoIXOxH2R","1VzmKwWchwbflV4L4O2MetKb-EPNFUAt9","1u5EIIiXFirN-Ihq1e8b0_WR0U5uYh5Bp","1Kw4J4edNWMcNxtdO6xKxv_BVBKS6Di5t","16tFAVSUM_a24qk6zPgF4A_JX1G5LMzBN","1kr3SB_12RMNvnaUhuFC6cDhhb_P3AbKJ","1ZqgmdV60Xgg3ykL15lNV4tl7yKgjh2CN","1RnnPckvzpPc11NYR4FbhzfZf2A_TKBVA","1OWR3dURuZAEKyq5wsEti3dQm8LrMz7J3","17AWAajxR5h6EBQHCZwoiGnth_8FsSL5d","1nyJdJ_FICiL0_pYniVhhiCFVcyIjOpdV","1T58g7-M76PJaPrvuGXXondKwBqT-MaRn","1TyfGf91FZ2Qxcw4roATR6q0fmAJFNm-C","11j_FyOn5Bjqi6PQ9wQHJLkl0oVLb5K8J","1GCjosVfV2mi-uDph5ipd8mJ8Sv5NP7QX","1kHUGZt0JYAKnT3DXfXv2yy7RXMbwBPXZ","1lEnVtBg8tKUWTdNDqBEF9eZ6JIkbV7J6","1bbz77jwBey-FR_49v-AFrpUiW6QIK2Q7","1RrGpUijd4M-kiI1M4-ABv3RlpmP0_LQ7","1zhzPhu9GucxbYPart14RMRhuylx0wxU6","1ii0X7hVBKhOL5GxrnmVnI2U4BScdha7J","1Necu2hDHJykOZzJClP4KfzRPeo53X3Cg","1wYSskm3lKLKzowmOVjNoBEa28z53kxbO","1vRUU996VeGJ3qe72PVF5QmzvYTu-imOi","1vnBIYBAnA8zpeXJsPU21esXA7UMFvvh5","1Qt2-bfh2VD5XqyhG_TnCahcHG5ug8mRd","1WrMROdA6GlDOJWJaRLgH2mpoLe7hcyuh","1n1s9TR4P7iogxN__OdmYkKdxlpOiLZcx","1GenbV3W2-czsGNbFWqn8tRUxBI9C0XIn"];
+const PHOTO_FOLDER_URL = 'https://drive.google.com/drive/folders/1ktHHv_PKC47kcqCHLSAryeAyP6OMPukw?usp=drive_link';
+const PHOTO_BATCH_SIZE = 24;
+let displayedPhotoCount = 0;
+let activeAuditionPhoto = -1;
+const drivePhotoThumbnail = (id,sz=800) => 'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w'+sz;
+const drivePhotoAlternate = (id,sz=800) => 'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w'+sz;
+const drivePhotoView = id => 'https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view';
+function photoText(es,zh){return currentLanguage==='zh'?zh:es;}
+function updateGalleryStatus(){
+ const el=document.getElementById('photoGalleryStatus');
+ if(!el)return;
+ el.textContent=photoText(`${displayedPhotoCount} de ${AUDITION_PHOTO_IDS.length} fotografías`,
+  `已顯示 ${displayedPhotoCount} / ${AUDITION_PHOTO_IDS.length} 張照片`);
+ const b=document.getElementById('showMorePhotos');
+ if(b)b.hidden=displayedPhotoCount>=AUDITION_PHOTO_IDS.length;
+}
+function addPhotoBatch(){
+ const grid=document.getElementById('auditionPhotoGrid');if(!grid)return;
+ const stop=Math.min(AUDITION_PHOTO_IDS.length,displayedPhotoCount+PHOTO_BATCH_SIZE);
+ const frag=document.createDocumentFragment();
+ for(let i=displayedPhotoCount;i<stop;i++){
+  const id=AUDITION_PHOTO_IDS[i];
+  const btn=document.createElement('button');
+  btn.className='audition-photo-card';btn.type='button';btn.dataset.photoIndex=String(i);
+  btn.setAttribute('aria-label',photoText(`Ampliar fotografía ${i+1}`,`放大第 ${i+1} 張照片`));
+  const im=document.createElement('img');im.src=drivePhotoThumbnail(id,640);im.loading='lazy';im.decoding='async';
+  im.alt=photoText(`Fotografía ${i+1} de la audición`,`音樂會照片 ${i+1}`);
+  im.dataset.photoId=id;im.dataset.photoSize='640';
+  const no=document.createElement('span');no.className='photo-badge';no.textContent=String(i+1).padStart(2,'0');
+  const fallback=document.createElement('span');fallback.className='photo-error';fallback.textContent=photoText('Abrir foto en Drive ↗','在 Google Drive 查看 ↗');
+  btn.append(im,no,fallback);frag.appendChild(btn);
+ }
+ grid.appendChild(frag);displayedPhotoCount=stop;updateGalleryStatus();
+}
+function updatePhotoModalImage(){
+ if(activeAuditionPhoto<0)return;
+ const id=AUDITION_PHOTO_IDS[activeAuditionPhoto],i=activeAuditionPhoto+1;
+ const card=document.querySelector('#modal .modal-card');
+ if(!card)return;
+ const heading=document.getElementById('modalTitle');
+ if(heading)heading.textContent=photoText(`Foto de la audición · ${i} / ${AUDITION_PHOTO_IDS.length}`,
+  `音樂會照片 · ${i} / ${AUDITION_PHOTO_IDS.length}`);
+ const image=card.querySelector('#activeAuditionPhotoImage');
+ if(image){image.hidden=false;image.dataset.photoStep='0';image.src=drivePhotoThumbnail(id,1800);image.alt=photoText(`Fotografía ${i}`,`照片 ${i}`);}
+ const open=card.querySelector('#activeAuditionPhotoDrive');
+ if(open)open.href=drivePhotoView(id);
+ const count=card.querySelector('#activeAuditionPhotoCount');
+ if(count)count.textContent=photoText(`${i} de ${AUDITION_PHOTO_IDS.length}`,`${i} / ${AUDITION_PHOTO_IDS.length}`);
+}
+function movePhoto(delta){
+ if(activeAuditionPhoto<0||!document.getElementById('activeAuditionPhotoImage'))return;
+ activeAuditionPhoto=(activeAuditionPhoto+delta+AUDITION_PHOTO_IDS.length)%AUDITION_PHOTO_IDS.length;
+ updatePhotoModalImage();
+}
+function openAuditionPhoto(index){
+ if(index<0||index>=AUDITION_PHOTO_IDS.length)return;
+ activeAuditionPhoto=index;
+ const html=`<div class="audition-photo-lightbox">
+   <button type="button" class="photo-arrow" data-photo-move="-1" aria-label="${photoText('Foto anterior','上一張照片')}">‹</button>
+   <div class="photo-modal-stage"><img id="activeAuditionPhotoImage" data-photo-id="" data-photo-size="1800" alt="" /><span class="photo-loading-message" id="photoLoadError" hidden>${photoText('Si no aparece, ábrela en Google Drive.','如果照片無法顯示，請在 Google Drive 開啟。')}</span></div>
+   <button type="button" class="photo-arrow" data-photo-move="1" aria-label="${photoText('Foto siguiente','下一張照片')}">›</button>
+ </div><div class="photo-modal-bottom"><span id="activeAuditionPhotoCount"></span>
+  <a id="activeAuditionPhotoDrive" target="_blank" rel="noopener noreferrer" href="${PHOTO_FOLDER_URL}">${photoText('Abrir fotografía en Drive ↗','在 Google Drive 查看照片 ↗')}</a></div>`;
+ openModal(photoText('Foto de la audición','音樂會照片'),html);
+ updatePhotoModalImage();
+}
+// Si Google restringe una de las URLs de imagen, intenta la alternativa y, en último caso,
+// muestra un enlace a Drive en lugar de dejar una miniatura rota.
+document.addEventListener('error',e=>{
+ const im=e.target;
+ if(!(im instanceof HTMLImageElement)||!im.dataset.photoSize)return;
+ const isModal=im.id==='activeAuditionPhotoImage';
+ const id=isModal?AUDITION_PHOTO_IDS[activeAuditionPhoto]:im.dataset.photoId;
+ if(!id)return;
+ const step=Number(im.dataset.photoStep||0);
+ if(step===0){im.dataset.photoStep='1';im.src=drivePhotoAlternate(id,Number(im.dataset.photoSize));}
+ else{
+  if(isModal){im.hidden=true;const msg=document.getElementById('photoLoadError');if(msg)msg.hidden=false;}
+  else im.closest('.audition-photo-card')?.classList.add('is-error');
+ }
+},true);
+document.addEventListener('load',e=>{
+ if(e.target&&e.target.id==='activeAuditionPhotoImage'){
+  const msg=document.getElementById('photoLoadError');if(msg)msg.hidden=true;
+ }
+},true);
+document.addEventListener('click',e=>{
+ const move=e.target.closest('[data-photo-move]');
+ if(move){movePhoto(Number(move.dataset.photoMove));return;}
+ const photo=e.target.closest('[data-photo-index]');
+ if(photo){
+  const index=Number(photo.dataset.photoIndex);
+  if(photo.classList.contains('is-error'))window.open(drivePhotoView(AUDITION_PHOTO_IDS[index]),'_blank','noopener,noreferrer');
+  else openAuditionPhoto(index);
+ }
+});
+document.addEventListener('keydown',e=>{
+ if(activeAuditionPhoto<0||!document.getElementById('activeAuditionPhotoImage'))return;
+ if(e.key==='ArrowLeft'){e.preventDefault();movePhoto(-1);}
+ if(e.key==='ArrowRight'){e.preventDefault();movePhoto(1);}
+});
+let photoTouchX=null;
+document.addEventListener('touchstart',e=>{
+ if(!e.target.closest('.audition-photo-lightbox'))return;
+ photoTouchX=e.changedTouches[0]?.clientX??null;
+},{passive:true});
+document.addEventListener('touchend',e=>{
+ if(photoTouchX===null||!e.target.closest('.audition-photo-lightbox'))return;
+ const end=e.changedTouches[0]?.clientX??photoTouchX,delta=end-photoTouchX;photoTouchX=null;
+ if(Math.abs(delta)>50)movePhoto(delta<0?1:-1);
+},{passive:true});
+document.getElementById('showMorePhotos')?.addEventListener('click',addPhotoBatch);
+addPhotoBatch();
 
 const $=s=>document.querySelector(s);
 const escapeHtml=(s)=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -659,7 +827,7 @@ renderSponsors();
 
 const modal=$('#modal'),modalTitle=$('#modalTitle'),modalContent=$('#modalContent');let previousFocus=null;
 function openModal(title,html,isVideo=false){previousFocus=document.activeElement;modalTitle.textContent=title;modalContent.innerHTML=html;modal.classList.toggle('modal--video',isVideo);modal.classList.add('open');$('#modalClose').focus();}
-function closeModal(){modal.classList.remove('open','modal--video');modalContent.innerHTML='';if(previousFocus?.focus)previousFocus.focus();}
+function closeModal(){activeAuditionPhoto=-1;modal.classList.remove('open','modal--video');modalContent.innerHTML='';if(previousFocus?.focus)previousFocus.focus();}
 $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
