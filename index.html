@@ -189,6 +189,37 @@ html.quiz-mode #quiz-app{display:block}
 @media(max-width:1020px){.songbook-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.songbook-card:last-child{grid-column:1/-1}}
 @media(max-width:720px){.songbook-grid{grid-template-columns:1fr;gap:21px}.songbook-card:last-child{grid-column:auto}.songbook-card{padding:20px}.songbook-card h3{font-size:1.3rem}.valencia-poster-qr{min-height:190px}}
 
+
+/* VISOR DE VÍDEOS DRIVE: iframe montado después de mostrar la ventana y adaptado al dispositivo. */
+.modal--video{padding:10px}
+.modal--video .modal-card{width:min(98vw,1120px);max-height:calc(100dvh - 20px);padding:clamp(12px,2vw,20px);display:flex;flex-direction:column;overflow:hidden}
+.modal--video .modal-top{flex:0 0 auto;margin-bottom:11px}
+.modal--video .modal-top h3{font-size:clamp(1.05rem,2.1vw,1.55rem);line-height:1.2}
+.modal--video #modalContent{min-height:0;flex:1;display:flex;flex-direction:column;overflow:auto}
+.modal--video .video-space{display:block;position:relative;flex:0 0 auto;width:100%;aspect-ratio:16/9;max-height:69dvh;min-height:0;background:#0c0e15;border:0;border-radius:14px;overflow:hidden}
+.modal--video .video-space iframe{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;border:0;max-width:none;max-height:none;z-index:1;background:#101116}
+.drive-loading{position:absolute;inset:0;z-index:2;pointer-events:none;display:flex;align-items:center;justify-content:center;text-align:center;gap:10px;flex-direction:column;background:#10121a;color:#fff;padding:20px;font-weight:700;font-size:.96rem}
+.drive-loading .drive-spinner{width:33px;height:33px;border:3px solid #ffffff43;border-top-color:#ffdb76;border-radius:50%;animation:driveSpin .85s linear infinite}
+@keyframes driveSpin{to{transform:rotate(360deg)}}
+.video-embed-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:13px 0 8px}
+.video-drive-link,.video-retry{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:100px;padding:11px 17px;font-family:'Baloo 2','Trebuchet MS',sans-serif;font-size:.91rem;font-weight:800;line-height:1.2;cursor:pointer}
+.video-drive-link{background:#60507e;color:white;border:2px solid #60507e}
+.video-retry{background:#fff;color:#57425d;border:2px solid #d9cdd9}
+.video-drive-link:hover,.video-retry:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.video-embed-tip{text-align:center;color:#806b7d;font-size:.81rem;line-height:1.45;margin:3px 0 4px}
+@media(max-width:700px){
+ .modal--video{padding:7px}
+ .modal--video .modal-card{width:100%;height:auto;max-height:calc(100dvh - 14px);border-radius:17px;padding:12px}
+ .modal--video .modal-top{margin-bottom:8px}
+ .modal--video #modalContent{overflow:auto}
+ .modal--video .video-space{flex:0 0 auto;aspect-ratio:auto;height:clamp(280px,50dvh,460px);max-height:55dvh;min-height:0;border-radius:10px}
+ .video-embed-actions{gap:8px;margin:11px 0 7px}
+ .video-drive-link,.video-retry{font-size:.85rem;padding:10px 12px}
+ .video-embed-tip{font-size:.75rem}
+}
+@media(max-height:480px) and (orientation:landscape){.modal--video .modal-card{max-height:calc(100dvh - 14px)}.modal--video .video-space{height:60dvh;max-height:60dvh;min-height:130px;flex:0 0 auto}.modal--video .modal-top{margin-bottom:3px}.video-embed-actions{margin:5px 0}.video-embed-tip{display:none}}
+@media(prefers-reduced-motion:reduce){.drive-loading .drive-spinner{animation:none}}
+
 </style>
 <script>if(location.hash==='#concurso-final')document.documentElement.classList.add('quiz-mode');</script>
 </head>
@@ -613,8 +644,8 @@ function renderSponsors(){
 renderSponsors();
 
 const modal=$('#modal'),modalTitle=$('#modalTitle'),modalContent=$('#modalContent');let previousFocus=null;
-function openModal(title,html){previousFocus=document.activeElement;modalTitle.textContent=title;modalContent.innerHTML=html;modal.classList.add('open');$('#modalClose').focus();}
-function closeModal(){modal.classList.remove('open');modalContent.innerHTML='';if(previousFocus?.focus)previousFocus.focus();}
+function openModal(title,html,isVideo=false){previousFocus=document.activeElement;modalTitle.textContent=title;modalContent.innerHTML=html;modal.classList.toggle('modal--video',isVideo);modal.classList.add('open');$('#modalClose').focus();}
+function closeModal(){modal.classList.remove('open','modal--video');modalContent.innerHTML='';if(previousFocus?.focus)previousFocus.focus();}
 $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
@@ -643,15 +674,57 @@ function videoData(url){
   if(u.protocol==='https:'||u.protocol==='http:'){if(/\.(mp4|webm|ogg)$/i.test(u.pathname))return {kind:'file',url:u.href};return {kind:'link',url:u.href};}
  }catch(e){}return null;
 }
+// Drive se crea cuando el modal YA está visible. Evita carga diferida en un contenedor oculto.
+let currentDriveVideo=null;
+function loadDrivePlayer(url,name){
+ const frameHost=document.getElementById('driveFrameHost');
+ if(!frameHost||!modal.classList.contains('open'))return;
+ frameHost.replaceChildren();
+ const loading=document.createElement('div');
+ loading.className='drive-loading';
+ loading.setAttribute('role','status');
+ loading.innerHTML=`<span class="drive-spinner" aria-hidden="true"></span><span>${tr('Cargando vídeo…','正在載入影片…')}</span>`;
+ frameHost.appendChild(loading);
+ // Esperamos a que el navegador haya mostrado y dimensionado la ventana.
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  if(!frameHost.isConnected||!modal.classList.contains('open'))return;
+  const frame=document.createElement('iframe');
+  frame.title=`${tr('Vídeo de','影片：')} ${name}`;
+  frame.loading='eager';
+  frame.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';
+  frame.setAttribute('allowfullscreen','');
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.addEventListener('load',()=>{
+   if(loading.isConnected)loading.remove();
+   // Ayuda a Drive a recalcular el encuadre tras inicializar sus controles.
+   frame.style.width='calc(100% - 1px)';
+   requestAnimationFrame(()=>{if(frame.isConnected)frame.style.width='100%';});
+  },{once:true});
+  frameHost.appendChild(frame);
+  frame.src=url;
+ }));
+}
 function openVideo(n){
  const original=ACTUACIONES.find(x=>x.n===n);if(!original)return;
  const a=actDisplay(original);playUiSound();const raw=(VIDEO_LINKS[n]||'').trim();const data=videoData(raw);let html='';
  if(!data){html=`<div class="video-space"><div class="video-pending"><span class="clapper">🎬</span><h4>${tr('¡Próximamente!','敬請期待！')}</h4><p>${tr('Después del concierto, aquí podrás revivir la actuación de','音樂會結束後，你可以在這裡重溫')} <b>${escapeHtml(a.name)}</b>${currentLanguage==='zh'?' 的演出。':'.'}</p></div></div><p class="modal-hint">${tr('💡 Para añadir el vídeo, abre el archivo HTML y pega el enlace correspondiente en','💡 若要加入影片，請打開 HTML 檔案，將對應影片網址貼到 JavaScript 的')} <code>VIDEO_LINKS</code>${tr(', al principio del bloque JavaScript.',' 區塊。')}</p>`;}
- else if(data.kind==='embed'){html=`<div class="video-space"><iframe src="${escapeHtml(data.url)}" title="${tr('Vídeo de','影片：')} ${escapeHtml(a.name)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>${data.direct?`<p class="modal-hint">${tr('¿No se reproduce?','無法播放嗎？')} <a href="${escapeHtml(data.direct)}" target="_blank" rel="noopener noreferrer">${tr('Abrir vídeo en Google Drive','在 Google Drive 開啟影片')}</a></p>`:''}`;}
+ else if(data.kind==='embed'&&data.direct){
+  currentDriveVideo={url:data.url,name:a.name};
+  html=`<div class="video-space" id="driveFrameHost" aria-label="${escapeHtml(tr('Reproductor del vídeo','影片播放器'))}"></div><div class="video-embed-actions"><button type="button" class="video-retry" id="driveRetry">↻ ${tr('Volver a cargar','重新載入')}</button><a class="video-drive-link" href="${escapeHtml(data.direct)}" target="_blank" rel="noopener noreferrer">↗ ${tr('Abrir en Google Drive','在 Google Drive 開啟')}</a></div><p class="video-embed-tip">${tr('Si el reproductor no se ve bien, abre el vídeo en Drive.','如果播放器顯示異常，請直接在 Google Drive 開啟影片。')}</p>`;
+  openModal(`${tr('Actuación','演出')} ${n} · ${a.name}`,html,true);
+  loadDrivePlayer(data.url,a.name);
+  return;
+ }
+ else if(data.kind==='embed'){html=`<div class="video-space"><iframe src="${escapeHtml(data.url)}" title="${tr('Vídeo de','影片：')} ${escapeHtml(a.name)}" allow="accelerometer; autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe></div>`;}
  else if(data.kind==='file'){html=`<div class="video-space"><video controls playsinline preload="metadata" src="${escapeHtml(data.url)}">${tr('Tu navegador no puede reproducir este vídeo.','你的瀏覽器無法播放這部影片。')}</video></div>`;}
  else{html=`<div class="video-space"><div class="video-pending"><span class="clapper">🎬</span><h4>${tr('¡El vídeo ya está disponible!','影片已經上線！')}</h4><p>${tr('El enlace se abre en una nueva pestaña.','影片會在新分頁中開啟。')}</p><p><a class="btn primary small" target="_blank" rel="noopener noreferrer" href="${escapeHtml(data.url)}">▶ ${tr('Abrir vídeo','開啟影片')}</a></p></div></div>`;}
  openModal(`${tr('Actuación','演出')} ${n} · ${a.name}`,html);
 }
+document.addEventListener('click',e=>{
+ if(e.target.closest('#driveRetry')&&currentDriveVideo&&modal.classList.contains('open')){
+  loadDrivePlayer(currentDriveVideo.url,currentDriveVideo.name);
+ }
+});
 document.addEventListener('click',e=>{const v=e.target.closest('[data-video]');if(v){openVideo(Number(v.dataset.video));return;}const i=e.target.closest('[data-image]');if(i){openPicture(i.dataset.image);playUiSound();}});
 
 /* Sonidos sintetizados por Web Audio: el archivo no necesita MP3 ni internet.
